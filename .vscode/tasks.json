@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "clang build",
+            "label": "build",
             "type": "shell",
             "command": "clang",
             "args": [
@@ -15,7 +15,7 @@
                 "-lpthread",
                 "-ldl",
                 "-lrt",
-                "-lX11"
+                "-lwayland-client",
             ],
             "group": "build"
         },
