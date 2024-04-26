@@ -1,33 +1,6 @@
 #include <raylib.h>
 #include "ball.h"
-
-typedef struct {
-	int x;
-	int y;
-	int width;
-	int height;
-	int speed;
-} Paddle;
-
-void drawPaddle(Paddle *paddle)
-{
-	DrawRectangle(paddle->x, paddle->y, paddle->width, paddle->height,
-		      WHITE);
-}
-
-void updatePlayerPaddle(Paddle *paddle, int screenHeight)
-{
-	if (IsKeyDown(KEY_UP)) {
-		paddle->y -= paddle->speed;
-		if (paddle->y < 0)
-			paddle->y = 0;
-	}
-	if (IsKeyDown(KEY_DOWN)) {
-		paddle->y += paddle->speed;
-		if (paddle->y + paddle->height > screenHeight)
-			paddle->y = screenHeight - paddle->height;
-	}
-}
+#include "paddle.h"
 
 int main()
 {
