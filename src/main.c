@@ -47,6 +47,23 @@ int main()
 		updatePlayerPaddle(&rightPaddle, SCREEN_HEIGHT);
 		updateBall(&ball, SCREEN_WIDTH, SCREEN_HEIGHT);
 
+		// Check collisions between ball and paddles
+		Vector2 ballPos = { ball.x, ball.y };
+		bool didBallCollide =
+			CheckCollisionCircleRec(
+				ballPos, ball.radius,
+				(Rectangle){ leftPaddle.x, leftPaddle.y,
+					     leftPaddle.width,
+					     leftPaddle.height }) ||
+			CheckCollisionCircleRec(
+				ballPos, ball.radius,
+				(Rectangle){ rightPaddle.x, rightPaddle.y,
+					     rightPaddle.width,
+					     rightPaddle.height });
+		if (didBallCollide) {
+			ball.speedX *= -1;
+		}
+
 		drawPaddle(&leftPaddle);
 		drawPaddle(&rightPaddle);
 		drawBall(&ball);
