@@ -4,19 +4,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "clang",
-            "args": [
-                "src/main.c",
-                "-o",
-                "build/main",
-                "-lraylib",
-                "-lGL",
-                "-lm",
-                "-lpthread",
-                "-ldl",
-                "-lrt",
-                "-lwayland-client",
-            ],
+            "command": "make",
             "group": "build"
         },
         {
@@ -27,6 +15,12 @@
             "dependsOn": [
                 "build"
             ]
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "make clean",
+            "group": "build",
         },
     ]
 }
