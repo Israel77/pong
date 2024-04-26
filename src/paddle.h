@@ -11,5 +11,6 @@ typedef struct {
 
 void drawPaddle(Paddle *paddle);
 void updatePlayerPaddle(Paddle *paddle, int screenHeight);
+void clampPaddleHeight(Paddle *paddle, int screenHeight);
 
 #endif

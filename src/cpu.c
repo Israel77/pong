@@ -1,4 +1,8 @@
 #include "cpu.h"
+#include "paddle.h"
+
+#include "cpu.h"
+#include "paddle.h"
 
 void updateCPUPaddle(Paddle *paddle, Ball *ball, int screenHeight)
 {
@@ -6,9 +10,9 @@ void updateCPUPaddle(Paddle *paddle, Ball *ball, int screenHeight)
 
 	if (ball->y > PADDLE_CENTER) {
 		paddle->y += paddle->speed;
-		if (paddle->y + paddle->height > screenHeight)
-			paddle->y = screenHeight - paddle->height;
 	} else if (ball->y < PADDLE_CENTER) {
 		paddle->y -= paddle->speed;
 	}
+
+	clampPaddleHeight(paddle, screenHeight);
 }

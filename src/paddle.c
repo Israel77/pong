@@ -7,16 +7,24 @@ void drawPaddle(Paddle *paddle)
 		      WHITE);
 }
 
+// Clamps paddle height within the screen boundaries
+void clampPaddleHeight(Paddle *paddle, int screenHeight)
+{
+	if (paddle->y < 0) {
+		paddle->y = 0;
+	} else if (paddle->y + paddle->height > screenHeight) {
+		paddle->y = screenHeight - paddle->height;
+	}
+}
+
 void updatePlayerPaddle(Paddle *paddle, int screenHeight)
 {
 	if (IsKeyDown(KEY_UP)) {
 		paddle->y -= paddle->speed;
-		if (paddle->y < 0)
-			paddle->y = 0;
 	}
 	if (IsKeyDown(KEY_DOWN)) {
 		paddle->y += paddle->speed;
-		if (paddle->y + paddle->height > screenHeight)
-			paddle->y = screenHeight - paddle->height;
 	}
+
+	clampPaddleHeight(paddle, screenHeight);
 }
