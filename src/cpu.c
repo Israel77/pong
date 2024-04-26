@@ -1,9 +1,6 @@
 #include "cpu.h"
 #include "paddle.h"
 
-#include "cpu.h"
-#include "paddle.h"
-
 void updateCPUPaddle(Paddle *paddle, Ball *ball, int screenHeight)
 {
 	const int PADDLE_CENTER = paddle->y + paddle->height / 2;
