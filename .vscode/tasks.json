@@ -24,7 +24,9 @@
             "type": "shell",
             "command": "build/main",
             "group": "build",
-            "problemMatcher": [],
+            "dependsOn": [
+                "build"
+            ]
         },
     ]
 }
