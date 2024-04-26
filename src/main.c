@@ -24,13 +24,6 @@ void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 
 int main()
 {
-	Ball ball = { .x = SCREEN_WIDTH / 2,
-		      .y = SCREEN_HEIGHT / 2,
-		      .radius = 20.0f,
-		      .speedX = BALL_SPEED,
-		      .speedY = BALL_SPEED,
-		      .color = WHITE };
-
 	Paddle leftPaddle = { .x = PADDLE_OFFSET,
 			      .y = SCREEN_HEIGHT / 2 - PADDLE_HEIGHT / 2,
 			      .width = PADDLE_WIDTH,
@@ -42,6 +35,8 @@ int main()
 			       .width = PADDLE_WIDTH,
 			       .height = PADDLE_HEIGHT,
 			       .speed = PADDLE_SPEED };
+
+	Ball ball = resetBall(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	int playerScore = 0;
 	int cpuScore = 0;

@@ -13,6 +13,7 @@ typedef struct {
 } Ball;
 
 void drawBall(Ball *ball);
+Ball resetBall(int screenWidth, int screenHeight);
 void updateBall(Ball *ball, int screenWidth, int screenHeight, int *leftScore,
 		int *rightScore);
 
