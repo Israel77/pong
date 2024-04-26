@@ -43,6 +43,9 @@ int main()
 			       .height = PADDLE_HEIGHT,
 			       .speed = PADDLE_SPEED };
 
+	int playerScore = 0;
+	int cpuScore = 0;
+
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
 	SetTargetFPS(FPS);
 
@@ -51,7 +54,8 @@ int main()
 
 		updateCPUPaddle(&leftPaddle, &ball, SCREEN_HEIGHT);
 		updatePlayerPaddle(&rightPaddle, SCREEN_HEIGHT);
-		updateBall(&ball, SCREEN_WIDTH, SCREEN_HEIGHT);
+		updateBall(&ball, SCREEN_WIDTH, SCREEN_HEIGHT, &cpuScore,
+			   &playerScore);
 
 		checkCollisions(&ball, &leftPaddle, &rightPaddle);
 
@@ -59,6 +63,10 @@ int main()
 		drawPaddle(&leftPaddle);
 		drawPaddle(&rightPaddle);
 		drawBall(&ball);
+		DrawText(TextFormat("%i", cpuScore), SCREEN_WIDTH / 4, 30, 80,
+			 WHITE);
+		DrawText(TextFormat("%i", playerScore), SCREEN_WIDTH * 3 / 4,
+			 30, 80, WHITE);
 
 		EndDrawing();
 	}
