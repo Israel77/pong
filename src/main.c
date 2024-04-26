@@ -1,3 +1,4 @@
+#include "cpu.h"
 #include <raylib.h>
 #include "ball.h"
 #include "paddle.h"
@@ -23,9 +24,6 @@ int main()
 		      .speedY = BALL_SPEED,
 		      .color = WHITE };
 
-	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
-	SetTargetFPS(FPS);
-
 	Paddle leftPaddle = { .x = PADDLE_OFFSET,
 			      .y = SCREEN_HEIGHT / 2 - PADDLE_HEIGHT / 2,
 			      .width = PADDLE_WIDTH,
@@ -38,10 +36,14 @@ int main()
 			       .height = PADDLE_HEIGHT,
 			       .speed = PADDLE_SPEED };
 
+	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
+	SetTargetFPS(FPS);
+
 	while (!WindowShouldClose()) {
 		ClearBackground(BLACK);
 		BeginDrawing();
 
+		updateCPUPaddle(&leftPaddle, &ball, SCREEN_HEIGHT);
 		updatePlayerPaddle(&rightPaddle, SCREEN_HEIGHT);
 		updateBall(&ball, SCREEN_WIDTH, SCREEN_HEIGHT);
 
