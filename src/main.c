@@ -3,6 +3,24 @@
 #include "ball.h"
 #include "paddle.h"
 
+void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
+{
+	// Check collisions between ball and paddles
+	Vector2 ballPos = { ball->x, ball->y };
+	bool didBallCollide =
+		CheckCollisionCircleRec(
+			ballPos, ball->radius,
+			(Rectangle){ leftPaddle->x, leftPaddle->y,
+				     leftPaddle->width, leftPaddle->height }) ||
+		CheckCollisionCircleRec(
+			ballPos, ball->radius,
+			(Rectangle){ rightPaddle->x, rightPaddle->y,
+				     rightPaddle->width, rightPaddle->height });
+	if (didBallCollide) {
+		ball->speedX *= -1;
+	}
+}
+
 int main()
 {
 	const int SCREEN_WIDTH = 1280;
@@ -40,30 +58,15 @@ int main()
 	SetTargetFPS(FPS);
 
 	while (!WindowShouldClose()) {
-		ClearBackground(BLACK);
 		BeginDrawing();
 
 		updateCPUPaddle(&leftPaddle, &ball, SCREEN_HEIGHT);
 		updatePlayerPaddle(&rightPaddle, SCREEN_HEIGHT);
 		updateBall(&ball, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-		// Check collisions between ball and paddles
-		Vector2 ballPos = { ball.x, ball.y };
-		bool didBallCollide =
-			CheckCollisionCircleRec(
-				ballPos, ball.radius,
-				(Rectangle){ leftPaddle.x, leftPaddle.y,
-					     leftPaddle.width,
-					     leftPaddle.height }) ||
-			CheckCollisionCircleRec(
-				ballPos, ball.radius,
-				(Rectangle){ rightPaddle.x, rightPaddle.y,
-					     rightPaddle.width,
-					     rightPaddle.height });
-		if (didBallCollide) {
-			ball.speedX *= -1;
-		}
+		checkCollisions(&ball, &leftPaddle, &rightPaddle);
 
+		ClearBackground(BLACK);
 		drawPaddle(&leftPaddle);
 		drawPaddle(&rightPaddle);
 		drawBall(&ball);
