@@ -1,7 +1,8 @@
-#include "cpu.h"
 #include <raylib.h>
+#include "defs.h"
 #include "ball.h"
 #include "paddle.h"
+#include "cpu.h"
 
 void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 {
@@ -23,18 +24,6 @@ void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 
 int main()
 {
-	const int SCREEN_WIDTH = 1280;
-	const int SCREEN_HEIGHT = 900;
-
-	const int PADDLE_WIDTH = 15;
-	const int PADDLE_HEIGHT = SCREEN_HEIGHT / 10;
-	const int PADDLE_OFFSET = 30;
-
-	const int FPS = 60;
-
-	const float BALL_SPEED = 7.0f;
-	const int PADDLE_SPEED = 10;
-
 	Ball ball = { .x = SCREEN_WIDTH / 2,
 		      .y = SCREEN_HEIGHT / 2,
 		      .radius = 20.0f,
