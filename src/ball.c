@@ -13,9 +13,9 @@ Ball resetBall(int screenWidth, int screenHeight)
 {
 	Ball ball;
 
-	const int angle = rand() * 2 * M_PI;
-	const int speedX = BALL_SPEED * cos(angle);
-	const int speedY = BALL_SPEED * sin(angle);
+	double angle = (double)rand() / RAND_MAX * 2 * M_PI;
+	const double speedX = BALL_SPEED * cos(angle);
+	const double speedY = BALL_SPEED * sin(angle);
 
 	ball.x = screenWidth / 2;
 	ball.y = screenHeight / 2;
