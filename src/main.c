@@ -60,6 +60,8 @@ int main()
 		checkCollisions(&ball, &leftPaddle, &rightPaddle);
 
 		ClearBackground(BLACK);
+		DrawLine(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT,
+			 WHITE);
 		drawPaddle(&leftPaddle);
 		drawPaddle(&rightPaddle);
 		drawBall(&ball);
