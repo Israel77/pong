@@ -9,6 +9,7 @@ int main()
 
 	const int PADDLE_WIDTH = 15;
 	const int PADDLE_HEIGHT = SCREEN_HEIGHT / 10;
+	const int PADDLE_OFFSET = 30;
 
 	const int FPS = 60;
 
@@ -25,13 +26,13 @@ int main()
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
 	SetTargetFPS(FPS);
 
-	Paddle leftPaddle = { .x = 30,
+	Paddle leftPaddle = { .x = PADDLE_OFFSET,
 			      .y = SCREEN_HEIGHT / 2 - PADDLE_HEIGHT / 2,
 			      .width = PADDLE_WIDTH,
 			      .height = PADDLE_HEIGHT,
 			      .speed = PADDLE_SPEED };
 
-	Paddle rightPaddle = { .x = SCREEN_WIDTH - 30 - PADDLE_WIDTH,
+	Paddle rightPaddle = { .x = SCREEN_WIDTH - PADDLE_OFFSET - PADDLE_WIDTH,
 			       .y = SCREEN_HEIGHT / 2 - PADDLE_HEIGHT / 2,
 			       .width = PADDLE_WIDTH,
 			       .height = PADDLE_HEIGHT,
