@@ -1,16 +1,18 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 900;
+extern const int SCREEN_WIDTH;
+extern const int SCREEN_HEIGHT;
 
-const int PADDLE_WIDTH = 15;
-const int PADDLE_HEIGHT = SCREEN_HEIGHT / 10;
-const int PADDLE_OFFSET = 30;
+extern const int PADDLE_WIDTH;
+extern const int PADDLE_HEIGHT;
+extern const int PADDLE_OFFSET;
 
-const int FPS = 60;
+extern const int FPS;
 
-const float BALL_SPEED = 7.0f;
-const int PADDLE_SPEED = 10;
+extern const float BALL_SPEED;
+extern const float BALL_RADIUS;
+
+extern const int PADDLE_SPEED;
 
 #endif // DEFS_H
