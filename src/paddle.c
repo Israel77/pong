@@ -3,8 +3,8 @@
 
 void drawPaddle(Paddle *paddle)
 {
-	DrawRectangle(paddle->x, paddle->y, paddle->width, paddle->height,
-		      paddle->color);
+	Rectangle box = { paddle->x, paddle->y, paddle->width, paddle->height };
+	DrawRectangleRounded(box, 1.0f, 4, paddle->color);
 }
 
 // Clamps paddle height within the screen boundaries
