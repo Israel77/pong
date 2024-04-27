@@ -6,7 +6,7 @@
 typedef struct {
 	int x;
 	int y;
-	float radius;
+	double radius;
 	int speedX;
 	int speedY;
 	Color color;

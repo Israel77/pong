@@ -15,6 +15,7 @@ void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 {
 	// Check collisions between ball and paddles
 	Vector2 ballPos = { ball->x, ball->y };
+
 	bool didBallCollide =
 		CheckCollisionCircleRec(
 			ballPos, ball->radius,
@@ -24,8 +25,11 @@ void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 			ballPos, ball->radius,
 			(Rectangle){ rightPaddle->x, rightPaddle->y,
 				     rightPaddle->width, rightPaddle->height });
-	if (didBallCollide) {
-		ball->speedX *= -1;
+
+	if (didBallCollide && ball->x < SCREEN_WIDTH / 2) {
+		ball->speedX = abs(ball->speedX);
+	} else if (didBallCollide && ball->x >= SCREEN_WIDTH / 2) {
+		ball->speedX = -abs(ball->speedX);
 	}
 }
 
