@@ -4,7 +4,7 @@
 void drawPaddle(Paddle *paddle)
 {
 	DrawRectangle(paddle->x, paddle->y, paddle->width, paddle->height,
-		      WHITE);
+		      paddle->color);
 }
 
 // Clamps paddle height within the screen boundaries
