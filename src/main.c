@@ -1,3 +1,5 @@
+#include <time.h>
+#include <stdlib.h>
 #include <raylib.h>
 #include "defs.h"
 #include "ball.h"
@@ -56,9 +58,12 @@ int main()
 
 		updateCPUPaddle(&leftPaddle, &ball, SCREEN_HEIGHT);
 		updatePlayerPaddle(&rightPaddle, SCREEN_HEIGHT);
+
+		// Seed the random number generator with a unique value
+		srand(time(NULL) ^ leftPaddle.y ^ rightPaddle.y);
+
 		updateBall(&ball, SCREEN_WIDTH, SCREEN_HEIGHT, &cpuScore,
 			   &playerScore);
-
 		checkCollisions(&ball, &leftPaddle, &rightPaddle);
 
 		ClearBackground(backgroundColor);

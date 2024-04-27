@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <time.h>
 #include <math.h>
 #include <raylib.h>
 #include "defs.h"
@@ -15,7 +14,6 @@ Ball resetBall(int screenWidth, int screenHeight, Color color)
 	Ball ball;
 
 	double angle;
-	srand(time(NULL));
 	// Avoids generating a ball that only moves horizontally or vertically
 	do {
 		angle = (double)rand() / RAND_MAX * 2 * M_PI;
