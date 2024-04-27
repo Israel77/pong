@@ -10,7 +10,7 @@ void drawBall(Ball *ball)
 	DrawCircle((int)ball->x, (int)ball->y, ball->radius, ball->color);
 }
 
-Ball resetBall(int screenWidth, int screenHeight)
+Ball resetBall(int screenWidth, int screenHeight, Color color)
 {
 	Ball ball;
 
@@ -29,7 +29,7 @@ Ball resetBall(int screenWidth, int screenHeight)
 	ball.radius = BALL_RADIUS;
 	ball.speedX = speedX;
 	ball.speedY = speedY;
-	ball.color = WHITE;
+	ball.color = color;
 
 	return ball;
 }
@@ -44,13 +44,13 @@ void updateBall(Ball *ball, int screenWidth, int screenHeight, int *leftScore,
 	if (ball->x - ball->radius <= 0) {
 		ball->speedX *= -1;
 		(*rightScore)++;
-		*ball = resetBall(screenWidth, screenHeight);
+		*ball = resetBall(screenWidth, screenHeight, ball->color);
 	}
 
 	if (ball->x + ball->radius >= screenWidth) {
 		ball->speedX *= -1;
 		(*leftScore)++;
-		*ball = resetBall(screenWidth, screenHeight);
+		*ball = resetBall(screenWidth, screenHeight, ball->color);
 	}
 
 	if (ball->y - ball->radius <= 0 ||
