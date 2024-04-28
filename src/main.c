@@ -40,6 +40,41 @@ void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 	}
 }
 
+void gameLoop(Paddle *leftPaddle, Paddle *rightPaddle, Ball *ball,
+	      int *cpuScore, int *playerScore, int screenWidth,
+	      int screenHeight, unsigned int *seed)
+{
+	BeginDrawing();
+
+	// Updates paddle positions
+	updateCPUPaddle(leftPaddle, ball, screenHeight);
+	updatePlayerPaddle(rightPaddle, screenHeight);
+
+	// Seed the random number generator with a unique value
+	*seed ^= time(NULL) ^ leftPaddle->y * 19 ^ rightPaddle->y * 257 ^
+		 (*cpuScore * 37 + *playerScore * 97);
+	srand(*seed);
+
+	// Checks for collisions between ball and paddles
+	checkCollisions(ball, leftPaddle, rightPaddle);
+
+	// Updates ball position and checks for scoring
+	updateBall(ball, screenWidth, screenHeight, cpuScore, playerScore);
+
+	// Draws the game elements
+	ClearBackground(backgroundColor);
+	DrawLine(screenWidth / 2, 0, screenWidth / 2, screenHeight, WHITE);
+	drawPaddle(leftPaddle);
+	drawPaddle(rightPaddle);
+	drawBall(ball);
+	DrawText(TextFormat("%i", *cpuScore), screenWidth / 4, 30, 80,
+		 textColor);
+	DrawText(TextFormat("%i", *playerScore), screenWidth * 3 / 4, 30, 80,
+		 textColor);
+
+	EndDrawing();
+}
+
 int main()
 {
 	Paddle leftPaddle = { .x = PADDLE_OFFSET,
@@ -64,38 +99,10 @@ int main()
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
 	SetTargetFPS(60);
 
-	unsigned int seed = time(NULL) ^ leftPaddle.y ^ rightPaddle.y;
+	unsigned int seed = time(NULL);
 	while (!WindowShouldClose()) {
-		BeginDrawing();
-
-		// Updates paddle positions
-		updateCPUPaddle(&leftPaddle, &ball, SCREEN_HEIGHT);
-		updatePlayerPaddle(&rightPaddle, SCREEN_HEIGHT);
-
-		// Seed the random number generator with a unique value
-		seed ^= time(NULL) ^ leftPaddle.y * 19 ^ rightPaddle.y * 257 ^
-			(cpuScore * 37 + playerScore * 97);
-		srand(seed);
-
-		// Checks for collisions between ball and paddles
-		checkCollisions(&ball, &leftPaddle, &rightPaddle);
-		// Updates ball position and checks for scoring
-		updateBall(&ball, SCREEN_WIDTH, SCREEN_HEIGHT, &cpuScore,
-			   &playerScore);
-
-		// Draws the game elements
-		ClearBackground(backgroundColor);
-		DrawLine(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT,
-			 WHITE);
-		drawPaddle(&leftPaddle);
-		drawPaddle(&rightPaddle);
-		drawBall(&ball);
-		DrawText(TextFormat("%i", cpuScore), SCREEN_WIDTH / 4, 30, 80,
-			 textColor);
-		DrawText(TextFormat("%i", playerScore), SCREEN_WIDTH * 3 / 4,
-			 30, 80, textColor);
-
-		EndDrawing();
+		gameLoop(&leftPaddle, &rightPaddle, &ball, &cpuScore,
+			 &playerScore, SCREEN_WIDTH, SCREEN_HEIGHT, &seed);
 	}
 
 	CloseWindow();
