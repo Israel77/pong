@@ -62,12 +62,13 @@ int main()
 	int cpuScore = 0;
 
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
-	SetTargetFPS(FPS);
+	SetTargetFPS(60);
 
 	unsigned int seed = time(NULL) ^ leftPaddle.y ^ rightPaddle.y;
 	while (!WindowShouldClose()) {
 		BeginDrawing();
 
+		// Updates paddle positions
 		updateCPUPaddle(&leftPaddle, &ball, SCREEN_HEIGHT);
 		updatePlayerPaddle(&rightPaddle, SCREEN_HEIGHT);
 
@@ -76,10 +77,13 @@ int main()
 			(cpuScore * 37 + playerScore * 97);
 		srand(seed);
 
+		// Checks for collisions between ball and paddles
 		checkCollisions(&ball, &leftPaddle, &rightPaddle);
+		// Updates ball position and checks for scoring
 		updateBall(&ball, SCREEN_WIDTH, SCREEN_HEIGHT, &cpuScore,
 			   &playerScore);
 
+		// Draws the game elements
 		ClearBackground(backgroundColor);
 		DrawLine(SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT,
 			 WHITE);
