@@ -7,6 +7,7 @@
 #include "ball.h"
 #include "paddle.h"
 #include "cpu.h"
+#include "argparse.h"
 
 Color backgroundColor = { 46, 196, 182, 255 };
 Color paddleColor = { 245, 247, 73, 255 };
@@ -90,27 +91,6 @@ void gameLoop(Paddle *leftPaddle, Paddle *rightPaddle, Ball *ball,
 		 textColor);
 
 	EndDrawing();
-}
-
-/**
- * parseArgs - Parse command line arguments for screen dimensions  
- * @argc: Number of arguments
- * @argv: Argument strings
- * @screenWidth: Pointer to screen width value
- * @screenHeight: Pointer to screen height value
- */
-void parseArgs(int argc, char *argv[], int *screenWidth, int *screenHeight)
-{
-	if (argc < 1)
-		return;
-
-	for (int i = 1; i < argc; i++) {
-		if (strcmp(argv[i], "--width") == 0 && i + 1 < argc) {
-			*screenWidth = atoi(argv[i + 1]);
-		} else if (strcmp(argv[i], "--height") == 0 && i + 1 < argc) {
-			*screenHeight = atoi(argv[i + 1]);
-		}
-	}
 }
 
 /**
