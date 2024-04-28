@@ -1,3 +1,4 @@
+#include <math.h>
 #include <time.h>
 #include <stdlib.h>
 #include <raylib.h>
@@ -11,9 +12,9 @@ Color paddleColor = { 245, 247, 73, 255 };
 Color ballColor = { 255, 51, 102, 255 };
 Color textColor = { 255, 51, 102, 200 };
 
+// Check collisions between ball and paddles
 void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 {
-	// Check collisions between ball and paddles
 	Vector2 ballPos = { ball->x, ball->y };
 
 	bool didBallCollide =
@@ -26,10 +27,16 @@ void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 			(Rectangle){ rightPaddle->x, rightPaddle->y,
 				     rightPaddle->width, rightPaddle->height });
 
-	if (didBallCollide && ball->x < SCREEN_WIDTH / 2) {
-		ball->speedX = abs(ball->speedX);
-	} else if (didBallCollide && ball->x >= SCREEN_WIDTH / 2) {
-		ball->speedX = -abs(ball->speedX);
+	if (didBallCollide) {
+		if (ball->x < SCREEN_WIDTH / 2) {
+			ball->speedX = fabs(ball->speedX);
+		} else if (ball->x >= SCREEN_WIDTH / 2) {
+			ball->speedX = -fabs(ball->speedX);
+		}
+
+		// Change ball y-direction slightly to make it more interesting
+		int randomOffset = GetRandomValue(-5, 5);
+		ball->speedY += randomOffset * 0.1;
 	}
 }
 
