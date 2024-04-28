@@ -16,7 +16,7 @@ Ball resetBall(int screenWidth, int screenHeight, Color color)
 	double angle;
 	// Avoids generating a ball that only moves horizontally or vertically
 	do {
-		angle = (double)rand() / RAND_MAX * 2 * M_PI;
+		angle = (double)rand() / RAND_MAX * 2 * PI;
 	} while (fabs(cos(angle)) < 0.5 || fabs(sin(angle)) < 0.5);
 
 	const double speedX = BALL_SPEED * cos(angle);
