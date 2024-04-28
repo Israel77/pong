@@ -12,7 +12,12 @@ Color paddleColor = { 245, 247, 73, 255 };
 Color ballColor = { 255, 51, 102, 255 };
 Color textColor = { 255, 51, 102, 200 };
 
-// Check collisions between ball and paddles
+/**
+ * checkCollisions - Check for collisions between ball and paddles
+ * @ball: Pointer to ball object
+ * @leftPaddle: Pointer to left paddle  
+ * @rightPaddle: Pointer to right paddle
+ */
 void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 {
 	Vector2 ballPos = { ball->x, ball->y };
@@ -40,6 +45,17 @@ void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
 	}
 }
 
+/**
+ * gameLoop - Main game loop
+ * @leftPaddle: Pointer to left CPU paddle
+ * @rightPaddle: Pointer to right player paddle  
+ * @ball: Pointer to ball object
+ * @cpuScore: Pointer to CPU's score
+ * @playerScore: Pointer to player's score
+ * @screenWidth: Width of screen
+ * @screenHeight: Height of screen
+ * @seed: Pointer to seed for random number generator
+ */
 void gameLoop(Paddle *leftPaddle, Paddle *rightPaddle, Ball *ball,
 	      int *cpuScore, int *playerScore, int screenWidth,
 	      int screenHeight, unsigned int *seed)
@@ -75,6 +91,9 @@ void gameLoop(Paddle *leftPaddle, Paddle *rightPaddle, Ball *ball,
 	EndDrawing();
 }
 
+/**
+ * main - Entry point for the game
+ */
 int main()
 {
 	Paddle leftPaddle = { .x = PADDLE_OFFSET,
