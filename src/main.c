@@ -1,4 +1,5 @@
 #include <math.h>
+#include <string.h>
 #include <time.h>
 #include <stdlib.h>
 #include <raylib.h>
@@ -92,36 +93,62 @@ void gameLoop(Paddle *leftPaddle, Paddle *rightPaddle, Ball *ball,
 }
 
 /**
+ * parseArgs - Parse command line arguments for screen dimensions  
+ * @argc: Number of arguments
+ * @argv: Argument strings
+ * @screenWidth: Pointer to screen width value
+ * @screenHeight: Pointer to screen height value
+ */
+void parseArgs(int argc, char *argv[], int *screenWidth, int *screenHeight)
+{
+	if (argc < 1)
+		return;
+
+	for (int i = 1; i < argc; i++) {
+		if (strcmp(argv[i], "--width") == 0 && i + 1 < argc) {
+			*screenWidth = atoi(argv[i + 1]);
+		} else if (strcmp(argv[i], "--height") == 0 && i + 1 < argc) {
+			*screenHeight = atoi(argv[i + 1]);
+		}
+	}
+}
+
+/**
  * main - Entry point for the game
  */
-int main()
+int main(int argc, char *argv[])
 {
+	int screenWidth = SCREEN_WIDTH;
+	int screenHeight = SCREEN_HEIGHT;
+
+	parseArgs(argc, argv, &screenWidth, &screenHeight);
+
 	Paddle leftPaddle = { .x = PADDLE_OFFSET,
-			      .y = SCREEN_HEIGHT / 2 - PADDLE_HEIGHT / 2,
+			      .y = screenHeight / 2 - PADDLE_HEIGHT / 2,
 			      .width = PADDLE_WIDTH,
 			      .height = PADDLE_HEIGHT,
 			      .speed = PADDLE_SPEED,
 			      .color = paddleColor };
 
-	Paddle rightPaddle = { .x = SCREEN_WIDTH - PADDLE_OFFSET - PADDLE_WIDTH,
-			       .y = SCREEN_HEIGHT / 2 - PADDLE_HEIGHT / 2,
+	Paddle rightPaddle = { .x = screenWidth - PADDLE_OFFSET - PADDLE_WIDTH,
+			       .y = screenHeight / 2 - PADDLE_HEIGHT / 2,
 			       .width = PADDLE_WIDTH,
 			       .height = PADDLE_HEIGHT,
 			       .speed = PADDLE_SPEED,
 			       .color = paddleColor };
 
-	Ball ball = resetBall(SCREEN_WIDTH, SCREEN_HEIGHT, ballColor);
+	Ball ball = resetBall(screenWidth, screenHeight, ballColor);
 
 	int playerScore = 0;
 	int cpuScore = 0;
 
-	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Pong");
+	InitWindow(screenWidth, screenHeight, "Pong");
 	SetTargetFPS(60);
 
 	unsigned int seed = time(NULL);
 	while (!WindowShouldClose()) {
 		gameLoop(&leftPaddle, &rightPaddle, &ball, &cpuScore,
-			 &playerScore, SCREEN_WIDTH, SCREEN_HEIGHT, &seed);
+			 &playerScore, screenWidth, screenHeight, &seed);
 	}
 
 	CloseWindow();
