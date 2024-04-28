@@ -7,8 +7,8 @@ typedef struct {
 	int x;
 	int y;
 	double radius;
-	int speedX;
-	int speedY;
+	double speedX;
+	double speedY;
 	Color color;
 } Ball;
 

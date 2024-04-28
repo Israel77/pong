@@ -40,19 +40,20 @@ void updateBall(Ball *ball, int screenWidth, int screenHeight, int *leftScore,
 
 	// Check for screen boundaries and reverse direction if necessary
 	if (ball->x - ball->radius <= 0) {
-		ball->speedX *= -1;
 		(*rightScore)++;
 		*ball = resetBall(screenWidth, screenHeight, ball->color);
 	}
 
 	if (ball->x + ball->radius >= screenWidth) {
-		ball->speedX *= -1;
 		(*leftScore)++;
 		*ball = resetBall(screenWidth, screenHeight, ball->color);
 	}
 
-	if (ball->y - ball->radius <= 0 ||
-	    ball->y + ball->radius >= screenHeight) {
-		ball->speedY *= -1;
+	if (ball->y - ball->radius < 0) {
+		ball->speedY = fabs(ball->speedY);
+	}
+
+	if (ball->y + ball->radius > screenHeight) {
+		ball->speedY = -fabs(ball->speedY);
 	}
 }
