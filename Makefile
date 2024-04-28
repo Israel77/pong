@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -Ofast -std=c99
 LDFLAGS = -lraylib -lm -lpthread -ldl -lrt -lGL 
 
 SRCDIR = src
