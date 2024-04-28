@@ -5,7 +5,8 @@ LDFLAGS = -lraylib -lm -lpthread -ldl -lrt -lGL
 SRCDIR = src
 BUILDDIR = build
 
-OBJECTS = $(BUILDDIR)/main.o $(BUILDDIR)/ball.o $(BUILDDIR)/paddle.o $(BUILDDIR)/cpu.o $(BUILDDIR)/defs.o
+OBJECTS = $(patsubst $(SRCDIR)/%.c,$(BUILDDIR)/%.o,$(wildcard $(SRCDIR)/*.c))
+
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
