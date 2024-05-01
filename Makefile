@@ -15,7 +15,7 @@ SUBDIRS = $(shell find src/* -type d -exec basename {} \;)
 OBJDIR = $(BUILDDIR)/obj
 # Use the same structure for object files as source files
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
-OBJSUBDIRS = $(OBJDIR)/$(SUBDIRS)
+OBJSUBDIRS = $(addprefix $(OBJDIR)/, $(SUBDIRS))
 
 BIN = $(BUILDDIR)/main
 
