@@ -41,11 +41,15 @@ void updateBall(Ball *ball, int screenWidth, int screenHeight, int *leftScore,
 	// Check for screen boundaries and reverse direction if necessary
 	if (ball->x - ball->radius <= 0) {
 		(*rightScore)++;
+		// Seeds the random number generator with a new value
+		srand(rand() ^ *rightScore * 97);
 		*ball = resetBall(screenWidth, screenHeight, ball->color);
 	}
 
 	if (ball->x + ball->radius >= screenWidth) {
 		(*leftScore)++;
+		// Seeds the random number generator with a new value
+		srand(rand() ^ *leftScore * 37);
 		*ball = resetBall(screenWidth, screenHeight, ball->color);
 	}
 

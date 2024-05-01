@@ -27,18 +27,13 @@ Color textColor = { 255, 51, 102, 200 };
  */
 void gameLoop(Paddle *leftPaddle, Paddle *rightPaddle, Ball *ball,
 	      int *cpuScore, int *playerScore, int screenWidth,
-	      int screenHeight, unsigned int *seed)
+	      int screenHeight)
 {
 	BeginDrawing();
 
 	// Updates paddle positions
 	updateCPUPaddle(leftPaddle, ball, screenHeight);
 	updatePlayerPaddle(rightPaddle, screenHeight);
-
-	// Seed the random number generator with a unique value
-	*seed ^= time(NULL) ^ leftPaddle->y * 19 ^ rightPaddle->y * 257 ^
-		 (*cpuScore * 37 + *playerScore * 97);
-	srand(*seed);
 
 	// Checks for collisions between ball and paddles
 	resolveBallPaddleCollision(ball, leftPaddle, rightPaddle);
@@ -92,10 +87,11 @@ int main(int argc, char *argv[])
 	InitWindow(screenWidth, screenHeight, "Pong");
 	SetTargetFPS(60);
 
-	unsigned int seed = time(NULL);
+	// Seeds initial random number generator
+	srand(time(NULL));
 	while (!WindowShouldClose()) {
 		gameLoop(&leftPaddle, &rightPaddle, &ball, &cpuScore,
-			 &playerScore, screenWidth, screenHeight, &seed);
+			 &playerScore, screenWidth, screenHeight);
 	}
 
 	CloseWindow();
