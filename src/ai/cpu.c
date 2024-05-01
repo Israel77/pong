@@ -8,6 +8,7 @@ int _sign(float num)
 	return (num > 0) - (num < 0);
 }
 
+// Default values for PID Controller
 PIDController pidController = { .kp = 0.4f,
 				.ki = 0.0f,
 				.kd = 0.7f,
@@ -17,16 +18,21 @@ PIDController pidController = { .kp = 0.4f,
 
 void updateCPUPaddle(Paddle *paddle, Ball *ball, int screenHeight)
 {
-	const int PADDLE_CENTER = paddle->y + paddle->height / 2;
-
 	// Simple AI logic
+	// const int PADDLE_CENTER = paddle->y + paddle->height / 2;
 	// if (ball->y > PADDLE_CENTER) {
 	// 	paddle->y += paddle->speed;
 	// } else if (ball->y < PADDLE_CENTER) {
 	// 	paddle->y -= paddle->speed;
 	// }
+	updateCPUPaddleWithController(paddle, ball, screenHeight,
+				      &pidController);
+}
 
-	// Implement a PID control system to smoothly track the ball's position
+void updateCPUPaddleWithController(Paddle *paddle, Ball *ball, int screenHeight,
+				   PIDController *controller)
+{
+	const int PADDLE_CENTER = paddle->y + paddle->height / 2;
 
 	float pError = ball->y - PADDLE_CENTER;
 	float action = updatePIDController(&pidController, pError, 1);

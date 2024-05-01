@@ -1,11 +1,12 @@
+#include "cpu.h"
+#include "pid.h"
 #include <time.h>
 #include <stdlib.h>
 #include "../core/defs.h"
 #include "battle.h"
 
 // Simulates the main game loop without the drawing functionality
-Result battle(PaddleUpdateFunction leftController,
-	      PaddleUpdateFunction rightController)
+Result battle(PIDController *leftController, PIDController *rightController)
 {
 	const int WINNING_SCORE = 30;
 	int screenWidth = SCREEN_WIDTH;
@@ -34,8 +35,10 @@ Result battle(PaddleUpdateFunction leftController,
 	srand(time(NULL));
 	while (leftScore < WINNING_SCORE && rightScore < WINNING_SCORE) {
 		// Updates paddle positions
-		leftController(&leftPaddle, &ball, screenHeight);
-		rightController(&rightPaddle, &ball, screenHeight);
+		updateCPUPaddleWithController(&leftPaddle, &ball, screenHeight,
+					      leftController);
+		updateCPUPaddleWithController(&rightPaddle, &ball, screenHeight,
+					      rightController);
 
 		// Checks for collisions between ball and paddles
 		resolveBallPaddleCollision(&ball, &leftPaddle, &rightPaddle);
