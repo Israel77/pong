@@ -37,6 +37,7 @@ void resolveBallPaddleCollision(Ball *ball, Paddle *leftPaddle,
 		// Change ball y-direction slightly to make it more interesting
 		int seed = rand() ^ time(NULL) ^ leftPaddle->y * 19 ^
 			   rightPaddle->y * 257;
+		srand(seed);
 		int randomOffset = GetRandomValue(-5, 5);
 		ball->speedY += randomOffset * 0.1;
 	}
