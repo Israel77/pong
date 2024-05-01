@@ -1,4 +1,3 @@
-#include <math.h>
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
@@ -7,45 +6,13 @@
 #include "core/ball.h"
 #include "core/paddle.h"
 #include "core/cpu.h"
+#include "core/collisions.h"
 #include "argparse.h"
 
 Color backgroundColor = { 46, 196, 182, 255 };
 Color paddleColor = { 245, 247, 73, 255 };
 Color ballColor = { 255, 51, 102, 255 };
 Color textColor = { 255, 51, 102, 200 };
-
-/**
- * checkCollisions - Check for collisions between ball and paddles
- * @ball: Pointer to ball object
- * @leftPaddle: Pointer to left paddle  
- * @rightPaddle: Pointer to right paddle
- */
-void checkCollisions(Ball *ball, Paddle *leftPaddle, Paddle *rightPaddle)
-{
-	Vector2 ballPos = { ball->x, ball->y };
-
-	bool didBallCollide =
-		CheckCollisionCircleRec(
-			ballPos, ball->radius,
-			(Rectangle){ leftPaddle->x, leftPaddle->y,
-				     leftPaddle->width, leftPaddle->height }) ||
-		CheckCollisionCircleRec(
-			ballPos, ball->radius,
-			(Rectangle){ rightPaddle->x, rightPaddle->y,
-				     rightPaddle->width, rightPaddle->height });
-
-	if (didBallCollide) {
-		if (ball->x < SCREEN_WIDTH / 2) {
-			ball->speedX = fabs(ball->speedX);
-		} else if (ball->x >= SCREEN_WIDTH / 2) {
-			ball->speedX = -fabs(ball->speedX);
-		}
-
-		// Change ball y-direction slightly to make it more interesting
-		int randomOffset = GetRandomValue(-5, 5);
-		ball->speedY += randomOffset * 0.1;
-	}
-}
 
 /**
  * gameLoop - Main game loop
@@ -74,7 +41,7 @@ void gameLoop(Paddle *leftPaddle, Paddle *rightPaddle, Ball *ball,
 	srand(*seed);
 
 	// Checks for collisions between ball and paddles
-	checkCollisions(ball, leftPaddle, rightPaddle);
+	resolveBallPaddleCollision(ball, leftPaddle, rightPaddle);
 
 	// Updates ball position and checks for scoring
 	updateBall(ball, screenWidth, screenHeight, cpuScore, playerScore);
