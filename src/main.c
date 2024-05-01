@@ -3,10 +3,10 @@
 #include <time.h>
 #include <stdlib.h>
 #include <raylib.h>
-#include "defs.h"
-#include "ball.h"
-#include "paddle.h"
-#include "cpu.h"
+#include "core/defs.h"
+#include "core/ball.h"
+#include "core/paddle.h"
+#include "core/cpu.h"
 #include "argparse.h"
 
 Color backgroundColor = { 46, 196, 182, 255 };
