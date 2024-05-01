@@ -5,7 +5,7 @@
 #include "core/defs.h"
 #include "core/ball.h"
 #include "core/paddle.h"
-#include "core/cpu.h"
+#include "ai/cpu.h"
 #include "core/collisions.h"
 #include "argparse.h"
 

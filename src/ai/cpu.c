@@ -1,5 +1,5 @@
 #include "cpu.h"
-#include "paddle.h"
+#include "../core/paddle.h"
 
 // Function that returns 1 if number is positive or -1 if its negative
 int _sign(float num)
