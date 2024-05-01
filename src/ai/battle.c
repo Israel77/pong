@@ -28,12 +28,12 @@ Result battle(PIDController *leftController, PIDController *rightController)
 
 	Ball ball = resetBall(screenWidth, screenHeight, WHITE);
 
-	int leftScore = 0;
-	int rightScore = 0;
+	int player1Score = 0;
+	int player2Score = 0;
 
 	// Seeds initial random number generator
 	srand(time(NULL));
-	while (leftScore < WINNING_SCORE && rightScore < WINNING_SCORE) {
+	while (player1Score < WINNING_SCORE && player2Score < WINNING_SCORE) {
 		// Updates paddle positions
 		updateCPUPaddleWithController(&leftPaddle, &ball, screenHeight,
 					      leftController);
@@ -44,9 +44,10 @@ Result battle(PIDController *leftController, PIDController *rightController)
 		resolveBallPaddleCollision(&ball, &leftPaddle, &rightPaddle);
 
 		// Updates ball position and checks for scoring
-		updateBall(&ball, screenWidth, screenHeight, &leftScore,
-			   &rightScore);
+		updateBall(&ball, screenWidth, screenHeight, &player1Score,
+			   &player2Score);
 	}
 
-	return (Result){ .leftScore = leftScore, .rightScore = rightScore };
+	return (Result){ .player1Score = player1Score,
+			 .player2Score = player2Score };
 }

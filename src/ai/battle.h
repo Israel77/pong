@@ -7,8 +7,8 @@
 #include "pid.h"
 
 typedef struct {
-	int leftScore;
-	int rightScore;
+	int player1Score;
+	int player2Score;
 } Result;
 
 Result battle(PIDController *leftController, PIDController *rightController);
