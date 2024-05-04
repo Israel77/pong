@@ -9,6 +9,7 @@
 typedef struct {
 	int player1Score;
 	int player2Score;
+	bool forcedFinish;
 } Result;
 
 Result battle(PIDController *leftController, PIDController *rightController);
