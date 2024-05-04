@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int POPULATION_SIZE = 128;
+const int POPULATION_SIZE = 256;
 const int POOL_SIZE = 16;
 const int NUM_GENERATIONS = 100;
 const double MUTATION_RATE = 0.02f;
@@ -259,6 +259,7 @@ void updateFitness(Candidate *population)
 		pairings[i][1] = i * 2 + 1;
 	}
 
+#pragma omp parallel for
 	// For each pairing, simulate a battle and update the fitness
 	for (int i = 0; i < POPULATION_SIZE / 2; i++) {
 		int player1 = pairings[i][0];

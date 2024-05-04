@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -g -O0 -std=c99
+CFLAGS = -Wall -g -Ofast -std=c99 -fopenmp=libomp
 LDFLAGS = -lraylib -lm -lpthread -ldl -lrt -lGL
 
 BUILDDIR = build
