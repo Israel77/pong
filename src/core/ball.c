@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <raylib.h>
@@ -41,7 +40,6 @@ void updateBall(Ball *ball, int screenWidth, int screenHeight, int *leftScore,
 
 	// Check for screen boundaries and reverse direction if necessary
 	if (ball->x - ball->radius <= 0) {
-		printf("Point for player 2\n");
 		(*rightScore)++;
 		// Seeds the random number generator with a new value
 		srand(rand() ^ *rightScore * 97);
@@ -49,7 +47,6 @@ void updateBall(Ball *ball, int screenWidth, int screenHeight, int *leftScore,
 	}
 
 	if (ball->x + ball->radius >= screenWidth) {
-		printf("Point for player 1\n");
 		(*leftScore)++;
 		// Seeds the random number generator with a new value
 		srand(rand() ^ *leftScore * 37);

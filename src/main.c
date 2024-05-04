@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
 	Ball ball = resetBall(screenWidth, screenHeight, ballColor);
 
 	// If custom controllers are desirable (gameLoop must also be changed)
-	initPIDController(&controller1, 3.352228, 7.682296, 2.777747);
+	initPIDController(&controller1, 3.024715, 2.536815, 3.026458);
 	initPIDController(&controller2, 5.5397, 4.773971, 6.288709);
 
 	int playerScore = 0;

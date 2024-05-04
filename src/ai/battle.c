@@ -10,7 +10,7 @@
 // Simulates the main game loop without the drawing functionality
 Result battle(PIDController *leftController, PIDController *rightController)
 {
-	const int WINNING_SCORE = 4;
+	const int WINNING_SCORE = 30;
 	int screenWidth = SCREEN_WIDTH;
 	int screenHeight = SCREEN_HEIGHT;
 
@@ -64,13 +64,13 @@ Result battle(PIDController *leftController, PIDController *rightController)
 		}
 
 		if (framesSinceLastPoint >= FRAME_LIMIT) {
-			printf("Stalling reached, resetting ball\n");
+			// printf("Stalling reached, resetting ball\n");
 			ball = resetBall(screenWidth, screenHeight, ball.color);
 			forcedResets++;
 		}
 	}
 
-	printf("Game over\n");
+	// printf("Game over\n");
 	return (Result){ .player1Score = player1Score,
 			 .player2Score = player2Score,
 			 .forcedFinish = forcedResets >= DRAW_LIMIT };

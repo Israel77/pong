@@ -1,5 +1,5 @@
 CC = clang
-CFLAGS = -Wall -g -Ofast -std=c99
+CFLAGS = -Wall -g -O0 -std=c99
 LDFLAGS = -lraylib -lm -lpthread -ldl -lrt -lGL
 
 BUILDDIR = build
@@ -17,9 +17,16 @@ OBJDIR = $(BUILDDIR)/obj
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 OBJSUBDIRS = $(addprefix $(OBJDIR)/, $(SUBDIRS))
 
+# Dependencies for running the tuning executable
+TUNINGDEPS = $(addprefix $(OBJDIR)/, tuning.o ai/battle.o ai/cpu.o ai/pid.o \
+	core/ball.o core/collisions.o core/defs.o core/paddle.o)
+
 BIN = $(BUILDDIR)/main
 
 all: $(BIN)
+
+tune: $(TUNINGDEPS) $(BUILDDIR)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(TUNINGDEPS) -o $(BUILDDIR)/tuning
 
 $(BUILDDIR):
 	$(info Creating build directory)
@@ -35,7 +42,7 @@ $(OBJSUBDIRS): $(OBJDIR)
 
 $(BIN): $(BUILDDIR) $(OBJS)
 	$(info Linking $@)
-	@$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) -o $@
+	$(CC) $(CFLAGS) $(LDFLAGS) $(filter-out $(OBJDIR)/tuning.o, $(OBJS)) -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJSUBDIRS)
 	$(info Compiling $<)
