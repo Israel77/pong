@@ -1,3 +1,4 @@
+#include "ai/pid.h"
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
@@ -14,6 +15,8 @@ Color paddleColor = { 245, 247, 73, 255 };
 Color ballColor = { 255, 51, 102, 255 };
 Color textColor = { 255, 51, 102, 200 };
 
+PIDController controller1;
+PIDController controller2;
 /**
  * gameLoop - Main game loop
  * @leftPaddle: Pointer to left CPU paddle
@@ -31,8 +34,14 @@ void gameLoop(Paddle *leftPaddle, Paddle *rightPaddle, Ball *ball,
 {
 	BeginDrawing();
 
-	// Updates paddle positions
+	// Use a custom controller setting
+	// updateCPUPaddleWithController(leftPaddle, ball, screenHeight,
+	// 			      &controller1);
 	updateCPUPaddle(leftPaddle, ball, screenHeight);
+
+	// Use a custom controller for the right player
+	// updateCPUPaddleWithController(rightPaddle, ball, screenHeight,
+	// 			      &controller2);
 	updatePlayerPaddle(rightPaddle, screenHeight);
 
 	// Checks for collisions between ball and paddles
@@ -80,6 +89,10 @@ int main(int argc, char *argv[])
 			       .color = paddleColor };
 
 	Ball ball = resetBall(screenWidth, screenHeight, ballColor);
+
+	// If custom controllers are desirable (gameLoop must also be changed)
+	initPIDController(&controller1, 3.352228, 7.682296, 2.777747);
+	initPIDController(&controller2, 5.5397, 4.773971, 6.288709);
 
 	int playerScore = 0;
 	int cpuScore = 0;
